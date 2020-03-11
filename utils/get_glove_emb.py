@@ -5,7 +5,7 @@ from nltk.tokenize import RegexpTokenizer
 import numpy as np
 
 
-PATH="../real_not_real_kaggle/data/"
+PATH="/content/semantic_text_similarity/data/"
 word_index=pd.read_pickle(f"{PATH}glove.840B.300d.pkl")
 
 def avg_feature_vector(sentence, num_features, word_index):
@@ -21,6 +21,12 @@ def avg_feature_vector(sentence, num_features, word_index):
     return feature_vec
 
 def get_glove_embeddings(df):
-    df["emb"] = df["text"].apply(lambda x: avg_feature_vector(x, 300, word_index)) 
+    df["emb"] = df["document"].apply(lambda x: avg_feature_vector(x, 300, word_index)) 
     
     return df
+
+def get_glove_embeddings_test(df):
+    df["emb"] = df["question"].apply(lambda x: avg_feature_vector(x, 300, word_index)) 
+    
+    return df
+
